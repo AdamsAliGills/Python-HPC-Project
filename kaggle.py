@@ -4,7 +4,7 @@ import kagglehub
 from kagglehub import KaggleDatasetAdapter
 
 # Set the path to the file you'd like to load
-file_path = "~/python_study/mini_project/data"
+file_path = "~/python_study/mini_project/data/swiss_dwellings.parquet"
 
 # Load the latest version
 df = kagglehub.load_dataset(
@@ -18,4 +18,3 @@ df = kagglehub.load_dataset(
 )
 
 print("First 5 records:", df.head())
-
