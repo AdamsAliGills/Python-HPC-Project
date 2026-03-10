@@ -2,7 +2,7 @@ import os
 import numpy as np
 import matplotlib
 
-matplotlib.use("Agg")
+matplotlib.use("Agg")  # Essential for bsub/HPC
 import matplotlib.pyplot as plt
 
 datapath = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
@@ -14,7 +14,6 @@ axs = axs.flatten()
 for i, id_val in enumerate(ids):
     ax = axs[i]
     ax.axis("off")
-    ax.set_aspect("equal")
 
     f_path = os.path.join(datapath, "struct_in", f"{id_val}.npy")
     if os.path.exists(f_path):
