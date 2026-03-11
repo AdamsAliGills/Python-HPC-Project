@@ -23,5 +23,5 @@ for i, building_id in enumerate(ids):
     axs[1, i].axis("off")
 
 plt.tight_layout()
-plt.savefig("initial_and_mask.png")
+plt.savefig("output/plots/initial_and_mask.png")
 plt.show()
