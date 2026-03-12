@@ -2,12 +2,21 @@ from os.path import join
 import sys
 import numpy as np
 
+datapath = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
+id_args = []
+SIZE = 512
 
-def load_data(load_dir, bid):
-    SIZE = 512
-    u = np.zeros((SIZE + 2, SIZE + 2))
-    u[1:-1, 1:-1] = np.load(join(load_dir, f"{bid}_domain.npy"))
-    interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
+
+def load_data():
+    # u_refactor = np.zeros((SIZE + 2, SIZE + 2))
+    u = np.zeros((len(id_args), SIZE + 2, SIZE + 2))
+    interior_mask = np.zeros((len(id_args), SIZE, SIZE), dtype="bool")
+
+    for i, building_id in enumerate(id_args):
+        u[i, 1:-1, 1:-1] = np.load(join(datapath, f"{building_id}_domain.npy"))
+        # u[i] = u_refactor
+        interior_mask[i] = np.load(join(datapath, f"{building_id}_interior.npy"))
+
     return u, interior_mask
 
 
@@ -40,33 +49,15 @@ def summary_stats(u, interior_mask):
     }
 
 
-if __name__ == "__main__":
-    """
-     1. loads directory with building ids 
-     2. take cmd line args to asses relevant buildings 
-     3. jacobi method for temp diffusion
-     4. print results in csv format, not in a csv file tho 
-    
-     it will be in the bsub result .out file
-
-     NOTE: besides the default, passing cmd line arg is about how many building in the id file do we want
-    """
-    LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
-    with open(join(LOAD_DIR, "building_ids.txt"), "r") as f:
-        building_ids = f.read().splitlines()
+def main():
 
     if len(sys.argv) < 2:
-        N = 1
+        print("please provide building id")
     else:
-        N = int(sys.argv[1])
-    building_ids = building_ids[:N]
+        for i in range(1, len(sys.argv)):
+            id_args.append(int(sys.argv[i]))
 
-    all_u0 = np.empty((N, 514, 514))
-    all_interior_mask = np.empty((N, 512, 512), dtype="bool")
-    for i, bid in enumerate(building_ids):
-        u0, interior_mask = load_data(LOAD_DIR, bid)
-        all_u0[i] = u0
-        all_interior_mask[i] = interior_mask
+    all_u0, all_interior_mask = load_data()
 
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
@@ -78,6 +69,10 @@ if __name__ == "__main__":
 
     stat_keys = ["mean_temp", "std_temp", "pct_above_18", "pct_below_15"]
     print("building_id, " + ", ".join(stat_keys))  # CSV header
-    for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
+    for bid, u, interior_mask in zip(id_args, all_u, all_interior_mask):
         stats = summary_stats(u, interior_mask)
         print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+
+
+if __name__ == "__main__":
+    main()
