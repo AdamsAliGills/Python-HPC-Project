@@ -49,7 +49,8 @@ if __name__ == "__main__":
     
      it will be in the bsub result .out file
 
-     NOTE: besides the default, passing cmd line arg is about how many building in the id file do we want
+     NOTE: passing cmd line arg is about how many buildings from the id file do we want
+     not the specific id
     """
     LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
     with open(join(LOAD_DIR, "building_ids.txt"), "r") as f:
