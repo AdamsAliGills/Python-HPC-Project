@@ -1,0 +1,54 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28030541: <sleeper> in cluster <dcc> Exited
+
+Job <sleeper> was submitted from host <hpclogin1> by user <s243894> in cluster <dcc> at Thu Mar 12 11:36:20 2026
+Job was executed on host(s) <n-62-11-62>, in queue <hpc>, as user <s243894> in cluster <dcc> at Thu Mar 12 11:36:20 2026
+</zhome/cf/4/214758> was used as the home directory.
+</zhome/cf/4/214758/python_study/mini_project> was used as the working directory.
+Started at Thu Mar 12 11:36:20 2026
+Terminated at Thu Mar 12 11:37:23 2026
+Results reported at Thu Mar 12 11:37:23 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J sleeper
+#BSUB -q hpc
+#BSUB -W 2
+#BSUB -R "rusage[mem=5GB]"
+#BSUB -R "select[model==XeonGold6226R]"
+#BSUB -n 1
+#BSUB -o sleeper_%J.out
+#BSUB -e sleeper_%J.err
+python3 src/provided_script.py $156
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   62.00 sec.
+    Max Memory :                                 167 MB
+    Average Memory :                             46.00 MB
+    Total Requested Memory :                     5120.00 MB
+    Delta Memory :                               4953.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   128 sec.
+    Turnaround time :                            63 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <sleeper_28030541.err> for stderr output of this job.
+

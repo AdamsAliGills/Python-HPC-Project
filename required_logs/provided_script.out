@@ -3,15 +3,15 @@ building_id, mean_temp, std_temp, pct_above_18, pct_below_15
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28027450: <sleeper> in cluster <dcc> Done
+Subject: Job 28030545: <sleeper> in cluster <dcc> Done
 
-Job <sleeper> was submitted from host <n-62-27-19> by user <s243894> in cluster <dcc> at Wed Mar 11 16:50:49 2026
-Job was executed on host(s) <n-62-11-66>, in queue <hpc>, as user <s243894> in cluster <dcc> at Wed Mar 11 16:50:50 2026
+Job <sleeper> was submitted from host <hpclogin1> by user <s243894> in cluster <dcc> at Thu Mar 12 11:37:44 2026
+Job was executed on host(s) <n-62-11-66>, in queue <hpc>, as user <s243894> in cluster <dcc> at Thu Mar 12 11:37:44 2026
 </zhome/cf/4/214758> was used as the home directory.
 </zhome/cf/4/214758/python_study/mini_project> was used as the working directory.
-Started at Wed Mar 11 16:50:50 2026
-Terminated at Wed Mar 11 16:50:58 2026
-Results reported at Wed Mar 11 16:50:58 2026
+Started at Thu Mar 12 11:37:44 2026
+Terminated at Thu Mar 12 11:37:55 2026
+Results reported at Thu Mar 12 11:37:55 2026
 
 Your job looked like:
 
@@ -34,16 +34,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   7.58 sec.
-    Max Memory :                                 33 MB
-    Average Memory :                             33.00 MB
+    CPU time :                                   10.33 sec.
+    Max Memory :                                 1 MB
+    Average Memory :                             1.00 MB
     Total Requested Memory :                     5120.00 MB
-    Delta Memory :                               5087.00 MB
+    Delta Memory :                               5119.00 MB
     Max Swap :                                   -
-    Max Processes :                              4
-    Max Threads :                                5
-    Run time :                                   49 sec.
-    Turnaround time :                            9 sec.
+    Max Processes :                              1
+    Max Threads :                                1
+    Run time :                                   57 sec.
+    Turnaround time :                            11 sec.
 
 The output (if any) is above this job summary.
 
@@ -51,5 +51,5 @@ The output (if any) is above this job summary.
 
 PS:
 
-Read file <sleeper_28027450.err> for stderr output of this job.
+Read file <sleeper_28030545.err> for stderr output of this job.
 

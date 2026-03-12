@@ -41,7 +41,17 @@ def summary_stats(u, interior_mask):
 
 
 if __name__ == "__main__":
-    # Load data
+    """
+     1. loads directory with building ids 
+     2. take cmd line args to asses relevant buildings 
+     3. jacobi method for temp diffusion
+     4. print results in csv format, not in a csv file tho 
+    
+     it will be in the bsub result .out file
+
+     NOTE: besides the default, passing cmd lines causes script termination
+     beacuse id fetching is unoptimal see logs
+    """
     LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
     with open(join(LOAD_DIR, "building_ids.txt"), "r") as f:
         building_ids = f.read().splitlines()
@@ -52,7 +62,6 @@ if __name__ == "__main__":
         N = int(sys.argv[1])
     building_ids = building_ids[:N]
 
-    # Load floor plans
     all_u0 = np.empty((N, 514, 514))
     all_interior_mask = np.empty((N, 512, 512), dtype="bool")
     for i, bid in enumerate(building_ids):
@@ -60,7 +69,6 @@ if __name__ == "__main__":
         all_u0[i] = u0
         all_interior_mask[i] = interior_mask
 
-    # Run jacobi iterations for each floor plan
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
 
@@ -69,7 +77,6 @@ if __name__ == "__main__":
         u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
         all_u[i] = u
 
-    # Print summary statistics in CSV format
     stat_keys = ["mean_temp", "std_temp", "pct_above_18", "pct_below_15"]
     print("building_id, " + ", ".join(stat_keys))  # CSV header
     for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
