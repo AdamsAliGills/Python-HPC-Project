@@ -15,11 +15,11 @@ for i, building_id in enumerate(ids):
     interior = np.load(interior_path)
 
     axs[0, i].imshow(domain, cmap="magma")
-    axs[0, i].set_title(f"Initial: {building_id}")
+    axs[0, i].set_title(f"Initial: {building_id}", fontsize=20)
     axs[0, i].axis("off")
 
     axs[1, i].imshow(interior, cmap="gray")
-    axs[1, i].set_title(f"Mask: {building_id}")
+    axs[1, i].set_title(f"Mask: {building_id}", fontsize=20)
     axs[1, i].axis("off")
 
 plt.tight_layout()

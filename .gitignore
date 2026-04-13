@@ -1,2 +1,14 @@
 kaggle.json
 mini_venv/
+
+# Notebooks
+*.ipynb
+
+# Job output files
+*.err
+*.out
+
+.pyc
+
+# Results folder
+output/
