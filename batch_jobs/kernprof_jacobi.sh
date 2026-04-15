@@ -9,4 +9,4 @@
 #BSUB -e sleeper_%J.err
 source /dtu/projects/02613_2025/conda/conda_init.sh
 conda activate 02613_2026
-kernprof -lb src/kernprof_jacobi.py 1
+kernprof -lb src/T4/kernprof_jacobi.py 1

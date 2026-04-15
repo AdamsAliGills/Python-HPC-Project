@@ -7,4 +7,4 @@
 #BSUB -n 1
 #BSUB -o sleeper_%J.out
 #BSUB -e sleeper_%J.err
-python3 src/demo.py
+python3 src/T3/visualization.py

@@ -7,4 +7,4 @@
 #BSUB -n 1
 #BSUB -o sleeper_%J.out
 #BSUB -e sleeper_%J.err
-python3 src/provided_script.py 3
+python3 src/T2/provided_script.py 3
