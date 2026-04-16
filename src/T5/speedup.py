@@ -83,4 +83,3 @@ def plot_parallel_speedup(pattern):
 
 
 plot_parallel_speedup("required_logs/T5/plans_10/*.log")
-
