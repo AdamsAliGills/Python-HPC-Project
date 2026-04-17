@@ -42,12 +42,34 @@ def jacobi_jit(u, interior_mask, max_iter=20_000, atol=1e-6):
     return u
 
 @cuda.jit
-def jacobi_cuda(u, u_new, interior_mask):
+def jacobi_cuda_kernel(u, u_new, interior_mask):
     i, j = cuda.grid(2)  # 2D grid
     if 1 <= i < u.shape[0]-1 and 1 <= j < u.shape[1]-1:
         if interior_mask[i-1, j-1]:
             u_new[i, j] = 0.25 * (u[i-1, j] + u[i+1, j] + u[i, j-1] + u[i, j+1])
 
+def run_cuda(buildings, max_iter=20_000):
+    d_us, d_masks = [], []
+    for u, mask in buildings:
+        d_us.append(cuda.to_device(u))
+        d_masks.append(cuda.to_device(mask))
+
+    all_u = []
+    for d_u, d_mask in zip(d_us, d_masks):
+        rows, cols = d_u.shape
+        threads_per_block = (16, 16)  # 16x16 = 256 threads per block
+        blocks_per_grid = (
+        (rows + 16 - 1) // 16,
+        (cols + 16 - 1) // 16
+        )
+        d_u_new = cuda.to_device(d_u.copy_to_host())
+    
+        for _ in range(MAX_ITER):
+            jacobi_cuda_kernel[blocks_per_grid, threads_per_block](d_u, d_u_new, d_mask)
+            d_u, d_u_new = d_u_new, d_u
+        cuda.synchronize()
+        all_u.append(d_u.copy_to_host())
+    return all_u
 
 def jacobi_cupy(u, interior_mask, max_iter=20_000, atol=1e-6):
     u = cp.asarray(u)
@@ -67,7 +89,7 @@ def jacobi_cupy(u, interior_mask, max_iter=20_000, atol=1e-6):
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("N", type=int)
-    parser.add_argument("mode", default='parallel', choices=['parallel', 'jit', 'cuda', 'cupy'])
+    parser.add_argument("mode", default='provided', choices=['parallel', 'jit', 'cuda', 'cupy'])
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--dynamic", action="store_true", default=False)
     parser.add_argument("--plot", action="store_true", default=False)
@@ -80,7 +102,10 @@ if __name__=='__main__':
 
     buildings, building_ids = load_buildings(args.N)
 
-    if args.mode == 'parallel':
+    if args.mode == 'provided':
+        all_u = [jacobi(u, interior_mask, max_iter=MAX_ITER, atol=ABS_TOL) for u, interior_mask in buildings]
+
+    elif args.mode == 'parallel':
         # Make imap possible
         jacobi_func = partial(jacobi, max_iter=MAX_ITER, atol=ABS_TOL)
         def run_jacobi(args):
@@ -96,26 +121,7 @@ if __name__=='__main__':
         all_u = [jacobi_jit(u, interior_mask, max_iter=MAX_ITER, atol=ABS_TOL) for u, interior_mask in buildings]
 
     elif args.mode == 'cuda':
-        d_us, d_masks = [], []
-        for u, mask in buildings:
-            d_us.append(cuda.to_device(u))
-            d_masks.append(cuda.to_device(mask))
-
-        all_u = []
-        for d_u, d_mask in zip(d_us, d_masks):
-            rows, cols = d_u.shape
-            threads_per_block = (16, 16)  # 16x16 = 256 threads per block
-            blocks_per_grid = (
-            (rows + 16 - 1) // 16,
-            (cols + 16 - 1) // 16
-            )
-            d_u_new = cuda.to_device(d_u.copy_to_host())
-        
-            for _ in range(MAX_ITER):
-                jacobi_cuda[blocks_per_grid, threads_per_block](d_u, d_u_new, d_mask)
-                d_u, d_u_new = d_u_new, d_u
-            cuda.synchronize()
-            all_u.append(d_u.copy_to_host())
+        all_u = run_cuda(buildings)
     
     elif args.mode == 'cupy':
         all_u = [jacobi_cupy(u, interior_mask, max_iter=MAX_ITER, atol=ABS_TOL) for u, interior_mask in buildings]
@@ -129,4 +135,4 @@ if __name__=='__main__':
             axs[i].axis("off")
 
         plt.tight_layout()
-        plt.savefig("output/plots/sim_result_demo.png")
+        plt.savefig(f"output/plots/sim_result_example_{args.mode}.png")
