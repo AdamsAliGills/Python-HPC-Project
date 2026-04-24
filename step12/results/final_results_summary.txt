@@ -1,0 +1,6 @@
+Number of buildings: 4571
+Average mean temperature: 14.69361313440956
+Average temperature standard deviation: 6.801697595583304
+Buildings with at least 50% area above 18C: 804
+Buildings with at least 50% area below 15C: 2471
+Histogram saved to: output/step12/mean_temperature_histogram.png
