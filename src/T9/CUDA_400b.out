@@ -1,0 +1,68 @@
+--- CUDA timing on 400 buildings ---
+Total buildings available: 4571
+
+real	6m16.883s
+user	6m13.349s
+sys	0m2.055s
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28282191: <q9_cuda> in cluster <dcc> Done
+
+Job <q9_cuda> was submitted from host <n-62-9-42> by user <s250989> in cluster <dcc> at Sat Apr 25 23:18:36 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s250989> in cluster <dcc> at Sat Apr 25 23:18:37 2026
+</zhome/45/3/220330> was used as the home directory.
+</zhome/45/3/220330/wall-heating-project> was used as the working directory.
+Started at Sat Apr 25 23:18:37 2026
+Terminated at Sat Apr 25 23:24:57 2026
+Results reported at Sat Apr 25 23:24:57 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J q9_cuda
+#BSUB -q c02613
+#BSUB -W 30
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "rusage[mem=5GB]"
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -o hpc_logs/q9_%J.out
+#BSUB -e hpc_logs/q9_%J.err
+
+export PYTHONPATH=$PWD/src:$PYTHONPATH
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+echo "--- CUDA timing on 400 buildings ---"
+{ time python3 src/T9/gpu.py 400 cuda; } 2>&1
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   376.92 sec.
+    Max Memory :                                 1759 MB
+    Average Memory :                             1529.50 MB
+    Total Requested Memory :                     20480.00 MB
+    Delta Memory :                               18721.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                10
+    Run time :                                   380 sec.
+    Turnaround time :                            381 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <hpc_logs/q9_28282191.err> for stderr output of this job.
+

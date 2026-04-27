@@ -1,0 +1,73 @@
+--- CUDA timing (NO plotting) ---
+
+real	0m35.300s
+user	0m31.793s
+sys	0m0.772s
+--- CuPy timing (optional but good) ---
+
+real	2m30.917s
+user	2m28.657s
+sys	0m0.624s
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28282090: <q9_cuda> in cluster <dcc> Done
+
+Job <q9_cuda> was submitted from host <n-62-9-42> by user <s250989> in cluster <dcc> at Sat Apr 25 22:28:59 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s250989> in cluster <dcc> at Sat Apr 25 22:28:59 2026
+</zhome/45/3/220330> was used as the home directory.
+</zhome/45/3/220330/wall-heating-project> was used as the working directory.
+Started at Sat Apr 25 22:28:59 2026
+Terminated at Sat Apr 25 22:32:09 2026
+Results reported at Sat Apr 25 22:32:09 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J q9_cuda
+#BSUB -q c02613
+#BSUB -W 20
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "rusage[mem=5GB]"
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -o hpc_logs/q9_%J.out
+#BSUB -e hpc_logs/q9_%J.err
+
+export PYTHONPATH=$PWD/src:$PYTHONPATH
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+echo "--- CUDA timing (NO plotting) ---"
+{ time python3 src/T9/gpu.py 32 cuda; } 2>&1
+
+echo "--- CuPy timing (optional but good) ---"
+{ time python3 src/T9/gpu.py 32 cupy; } 2>&1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   183.14 sec.
+    Max Memory :                                 262 MB
+    Average Memory :                             252.25 MB
+    Total Requested Memory :                     20480.00 MB
+    Delta Memory :                               20218.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                10
+    Run time :                                   190 sec.
+    Turnaround time :                            190 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <hpc_logs/q9_28282090.err> for stderr output of this job.
+
