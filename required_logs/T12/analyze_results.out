@@ -1,0 +1,74 @@
+No GPU on this node, CUDA module not loaded
+Number of buildings: 4571
+Average mean temperature: 14.69361313440956
+Average temperature standard deviation: 6.801697595583304
+Buildings with at least 50% area above 18C: 804
+Buildings with at least 50% area below 15C: 2471
+Histogram saved to: output/step12/mean_temperature_histogram.png
+Summary saved to: output/step12/step12_summary.txt
+
+real	0m1.825s
+user	0m1.183s
+sys	0m0.223s
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28255493: <ex12_analyze> in cluster <dcc> Done
+
+Job <ex12_analyze> was submitted from host <hpclogin2> by user <s251562> in cluster <dcc> at Wed Apr 22 14:24:39 2026
+Job was executed on host(s) <n-62-11-63>, in queue <hpc>, as user <s251562> in cluster <dcc> at Wed Apr 22 14:24:40 2026
+</zhome/1a/0/221254> was used as the home directory.
+</zhome/1a/0/221254/step_12> was used as the working directory.
+Started at Wed Apr 22 14:24:40 2026
+Terminated at Wed Apr 22 14:24:43 2026
+Results reported at Wed Apr 22 14:24:43 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J ex12_analyze
+#BSUB -q hpc
+#BSUB -W 10
+#BSUB -R "rusage[mem=2GB]"
+#BSUB -R "select[model==XeonGold6226R]"
+#BSUB -R "span[hosts=1]"
+#BSUB -n 1
+#BSUB -o hpc_logs/ex12_analyze_%J.out
+#BSUB -e hpc_logs/ex12_analyze_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+mkdir -p hpc_logs output/step12
+
+{ time python3 src/step12_analyze.py \
+    --input output/step12/all_buildings_results.csv \
+    --plot output/step12/mean_temperature_histogram.png \
+    --summary output/step12/step12_summary.txt; } 2>&1
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2.26 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     2048.00 MB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   3 sec.
+    Turnaround time :                            4 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <hpc_logs/ex12_analyze_28255493.err> for stderr output of this job.
