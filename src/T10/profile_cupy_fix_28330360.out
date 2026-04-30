@@ -1,0 +1,166 @@
+Profiling Cupy version
+Total buildings available: 4571
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+14966, 13.034329134959536, 7.106443958137408, 30.73818608746698, 62.283533900792484
+10794, 15.239259620512799, 7.067541176057548, 40.16905917070975, 50.91281948682038
+3456, 9.79462440459349, 5.940337207521079, 13.804736409257984, 81.30108591665129
+2962, 13.285629640565363, 7.2896898955532565, 32.91773916773917, 59.51040326040326
+28082, 14.119780855226894, 6.919543698409667, 34.17325868915982, 56.297834533991285
+1869, 16.512664557611682, 6.669710039554885, 48.52985612346884, 41.22213699649025
+14531, 16.868423726121385, 6.504814993505306, 50.43019575665221, 37.557144531707884
+9542, 10.557651021792008, 5.9915993404135435, 15.937234832414084, 76.74944314806959
+13979, 16.44630212227492, 7.155122737807808, 48.89812749273305, 42.48800108159265
+5184, 16.772807647448392, 6.524087752477859, 49.232980972515854, 39.010570824524315
+10985, 18.171015163120384, 6.65096990978327, 59.39301385184548, 30.78056439817603
+10946, 13.11725205205831, 7.144090108665321, 30.70354285075898, 61.07053582650226
+14176, 16.207502586473986, 7.347757569944117, 47.87513255567338, 44.41675503711559
+27055, 17.04552577116976, 6.856199145185287, 51.060714151616416, 39.062065858145914
+2893, 16.212554327564533, 6.819470968773971, 46.28502656796403, 43.93478359598528
+8185, 15.283538473298098, 6.750403282064544, 40.32255450198557, 46.512683361698684
+10836, 17.502544043935607, 7.387199774150428, 55.1640127879604, 37.70392376566371
+25473, 13.972318804388674, 6.844556549505799, 34.018880128126156, 56.32853886904029
+9537, 13.484907590512194, 6.972376400875154, 32.125462178781625, 59.61562543252025
+51629, 17.607259699733497, 6.829322210351323, 53.87942371197288, 36.17873111429323
+27130, 14.101204631581393, 6.836549369976511, 34.0567953756114, 56.56343512276021
+622, 15.360779864943177, 7.195477126497947, 41.979307483302776, 49.715578279549746
+3546, 14.848956819687666, 7.053053336875357, 39.91635310359763, 51.247935897782945
+10208, 9.476327304175928, 5.542403807578247, 11.935778252454446, 82.34503645316245
+2245, 10.27177347767455, 5.904517734843779, 15.4435724448116, 78.11586886349382
+5207, 14.719768014750688, 6.995284826236631, 38.45632644478452, 50.2832910830481
+45830, 14.045743805507472, 7.922624913882248, 38.03842094152417, 55.405530926746884
+3517, 14.79061004673386, 6.967986476195569, 39.684417212746325, 50.26613990679189
+2196, 16.98292753672993, 6.90707332852924, 52.342896499311266, 38.53488813945756
+26848, 15.651454181794135, 7.023868981317858, 42.68318240478265, 47.434949978491304
+45785, 15.306770457644395, 7.352073823160181, 42.140141927526756, 50.09526263955747
+14529, 15.069402587747206, 7.0440017324716795, 41.376833695727036, 49.2950540638928
+Generating '/tmp/nsys-report-da0f.qdstrm'
+[1/1] [0%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [0%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [14%                         ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [=====29%                    ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [5%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [6%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [7%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [8%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [9%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [10%                         ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [6%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [7%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [8%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [5%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [6%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [7%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [8%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [9%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [10%                         ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [7%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [8%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [6%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [7%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [6%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [5%                          ] t10_cupy_fix_profile_28330360.nsys-rep[1/1] [========================100%] t10_cupy_fix_profile_28330360.nsys-rep
+Generated:
+    /zhome/45/3/220330/wall-heating-project/hpc_logs/t10_cupy_fix_profile_28330360.qdstrm
+    /zhome/45/3/220330/wall-heating-project/hpc_logs/t10_cupy_fix_profile_28330360.nsys-rep
+Generating SQLite file hpc_logs/t10_cupy_fix_profile_28330360.sqlite from hpc_logs/t10_cupy_fix_profile_28330360.nsys-rep
+Processing [hpc_logs/t10_cupy_fix_profile_28330360.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/cudaapisum.py]... 
+
+ ** CUDA API Summary (cudaapisum):
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)   Med (ns)   Min (ns)  Max (ns)   StdDev (ns)              Name            
+ --------  ---------------  ---------  ----------  ---------  --------  ---------  -----------  ----------------------------
+     74.8        414689113     101987      4066.1     3859.0      3240     483880       1717.4  cuLaunchKernel              
+     23.8        132135080          7  18876440.0   313729.0    150167  130427087   49189335.6  cudaMalloc                  
+      0.7          4127975         10    412797.5   338336.0    247496     727763     149735.5  cuModuleLoadData            
+      0.6          3163834          2   1581917.0  1581917.0   1181849    1981985     565781.6  cudaHostAlloc               
+      0.0           114093          1    114093.0   114093.0    114093     114093          0.0  cudaMemGetInfo              
+      0.0            59869          2     29934.5    29934.5     20144      39725      13845.9  cudaMemcpyAsync             
+      0.0            16658          2      8329.0     8329.0      7553       9105       1097.4  cudaEventRecord             
+      0.0            13266          3      4422.0     4664.0      3186       5416       1134.5  cudaEventQuery              
+      0.0            11500          2      5750.0     5750.0      3426       8074       3286.6  cudaEventCreateWithFlags    
+      0.0            10195          2      5097.5     5097.5      3421       6774       2370.9  cudaStreamIsCapturing_v10000
+      0.0             4595          1      4595.0     4595.0      4595       4595          0.0  cuInit                      
+      0.0             2821          1      2821.0     2821.0      2821       2821          0.0  cudaEventDestroy            
+      0.0             1824          1      1824.0     1824.0      1824       1824          0.0  cuModuleGetLoadingMode      
+
+Processing [hpc_logs/t10_cupy_fix_profile_28330360.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/gpukernsum.py]... 
+
+ ** CUDA GPU Kernel Summary (gpukernsum):
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)     GridXYZ         BlockXYZ                       Name                  
+ --------  ---------------  ---------  --------  --------  --------  --------  -----------  --------------  --------------  ----------------------------------------
+     28.1        244843602      30236    8097.8    8128.0      7232      9600        239.3  2048    1    1   128    1    1  cupy_add__float64_float64_float64       
+     16.2        140952481      10289   13699.3   15008.0     11136     16160       1620.2  2048    1    1   128    1    1  cupy_where__bool_float64_float64_float64
+     11.7        101523790      10228    9926.1    9920.0      9280     10912        159.9  2048    1    1   128    1    1  cupy_multiply__float64_float64_float64  
+      9.4         81989438      10168    8063.5    8064.0      7488      8864        133.7  2048    1    1   128    1    1  cupy_subtract__float64_float64_float64  
+      9.0         78268731      10316    7587.1    7552.0      7040      8737        137.0  2048    1    1   128    1    1  cupy_copy__float64_float64              
+      8.6         74976406      10200    7350.6    7328.0      6784      8128        120.1  2048    1    1   128    1    1  cupy_absolute__float64_float64          
+      8.5         74459558      10140    7343.2    7328.0      6848      8352        124.6  2048    1    1   128    1    1  cupy_multiply__float_float64_float64    
+      8.5         73904723      10258    7204.6    7200.0      6528      8159        130.7  2048    1    1   128    1    1  cupy_copy__bool_bool                    
+      0.0             7648          1    7648.0    7648.0      7648      7648          0.0  2048    1    1   128    1    1  cupy_copy__bool_float64                 
+
+Processing [hpc_logs/t10_cupy_fix_profile_28330360.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/gpumemtimesum.py]... 
+
+ ** GPU MemOps Summary (by Time) (gpumemtimesum):
+
+ Time (%)  Total Time (ns)  Count  Avg (ns)  Med (ns)  Min (ns)  Max (ns)  StdDev (ns)      Operation     
+ --------  ---------------  -----  --------  --------  --------  --------  -----------  ------------------
+    100.0           128064      2   64032.0   64032.0     27904    100160      51092.7  [CUDA memcpy HtoD]
+
+Processing [hpc_logs/t10_cupy_fix_profile_28330360.sqlite] with [/appl/cuda/11.8.0/nsight-systems-2022.4.2/host-linux-x64/reports/gpumemsizesum.py]... 
+
+ ** GPU MemOps Summary (by Size) (gpumemsizesum):
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+      2.376      2     1.188     1.188     0.262     2.114        1.309  [CUDA memcpy HtoD]
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28330360: <T10_profile_cupy_fix> in cluster <dcc> Done
+
+Job <T10_profile_cupy_fix> was submitted from host <n-62-27-22> by user <s250989> in cluster <dcc> at Thu Apr 30 15:39:35 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s250989> in cluster <dcc> at Thu Apr 30 15:39:37 2026
+</zhome/45/3/220330> was used as the home directory.
+</zhome/45/3/220330/wall-heating-project> was used as the working directory.
+Started at Thu Apr 30 15:39:37 2026
+Terminated at Thu Apr 30 15:41:03 2026
+Results reported at Thu Apr 30 15:41:03 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J T10_profile_cupy_fix
+#BSUB -q c02613
+#BSUB -W 10
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "rusage[mem=5GB]"
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -o hpc_logs/profile_cupy_fix_%J.out
+#BSUB -e hpc_logs/profile_cupy_fix_%J.err
+
+export LSB_JOB_REPORT_MAIL=N
+export PYTHONPATH=$PWD/src:$PYTHONPATH
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+echo "Profiling Cupy version"
+
+PROFILE_OUT="hpc_logs/t10_cupy_fix_profile_${LSB_JOBID}"
+
+nsys profile \
+  --trace=cuda,nvtx \
+  --force-overwrite=true \
+  -o "$PROFILE_OUT" \
+  python3 src/T10/cp_fix.py 32
+
+nsys stats --report cudaapisum    "$PROFILE_OUT.nsys-rep"
+nsys stats --report gpukernsum    "$PROFILE_OUT.nsys-rep"
+nsys stats --report gpumemtimesum "$PROFILE_OUT.nsys-rep"
+nsys stats --report gpumemsizesum "$PROFILE_OUT.nsys-rep"
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   90.00 sec.
+    Max Memory :                                 904 MB
+    Average Memory :                             904.00 MB
+    Total Requested Memory :                     20480.00 MB
+    Delta Memory :                               19576.00 MB
+    Max Swap :                                   -
+    Max Processes :                              8
+    Max Threads :                                33
+    Run time :                                   86 sec.
+    Turnaround time :                            88 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <hpc_logs/profile_cupy_fix_28330360.err> for stderr output of this job.
+
