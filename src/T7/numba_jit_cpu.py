@@ -1,11 +1,18 @@
-from provided_script import *
+from os.path import join
+import numpy as np
 import random
 import matplotlib.pyplot as plt
 from multiprocessing import Pool
 from functools import partial
 import argparse
-from numba import jit, cuda
-import cupy as cp
+from numba import jit
+
+def load_data(load_dir, bid):
+    SIZE = 512
+    u = np.zeros((SIZE + 2, SIZE + 2))
+    u[1:-1, 1:-1] = np.load(join(load_dir, f"{bid}_domain.npy"))
+    interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
+    return u, interior_mask
 
 def load_buildings(N, seed=42):
     LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
