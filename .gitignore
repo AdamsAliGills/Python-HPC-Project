@@ -1,2 +1,6 @@
 kaggle.json
 mini_venv/
+src/*.ipynb
+
+hpc_logs/
+output/
