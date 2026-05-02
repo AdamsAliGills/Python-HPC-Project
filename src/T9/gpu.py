@@ -9,8 +9,6 @@ import cupy as cp
 from os.path import join
 
 
-# Data loading
-
 def load_buildings(N, seed=42):
     LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
     with open(join(LOAD_DIR, "building_ids.txt"), "r") as f:
@@ -28,9 +26,6 @@ def load_buildings(N, seed=42):
     return buildings, building_ids
 
 
-
-# JIT CPU version
-
 @jit(nopython=True)
 def jacobi_jit(u, interior_mask, max_iter=20_000, atol=1e-6):
     rows, cols = u.shape
@@ -41,10 +36,7 @@ def jacobi_jit(u, interior_mask, max_iter=20_000, atol=1e-6):
         for i in range(1, rows - 1):
             for j in range(1, cols - 1):
                 if interior_mask[i - 1, j - 1]:
-                    val = 0.25 * (
-                        u[i, j - 1] + u[i, j + 1] +
-                        u[i - 1, j] + u[i + 1, j]
-                    )
+                    val = 0.25 * (u[i, j - 1] + u[i, j + 1] + u[i - 1, j] + u[i + 1, j])
                     diff = abs(u[i, j] - val)
                     u_new[i, j] = val
                     if diff > delta:
@@ -57,18 +49,12 @@ def jacobi_jit(u, interior_mask, max_iter=20_000, atol=1e-6):
     return u
 
 
-
-# CUDA kernel
-
 @cuda.jit
 def jacobi_cuda_kernel(u, u_new, interior_mask):
     i, j = cuda.grid(2)
     if 1 <= i < u.shape[0] - 1 and 1 <= j < u.shape[1] - 1:
         if interior_mask[i - 1, j - 1]:
-            u_new[i, j] = 0.25 * (
-                u[i - 1, j] + u[i + 1, j] +
-                u[i, j - 1] + u[i, j + 1]
-            )
+            u_new[i, j] = 0.25 * (u[i - 1, j] + u[i + 1, j] + u[i, j - 1] + u[i, j + 1])
 
 
 def run_cuda(buildings, max_iter):
@@ -82,7 +68,7 @@ def run_cuda(buildings, max_iter):
         threads = (16, 16)
         blocks = (
             (u.shape[0] + threads[0] - 1) // threads[0],
-            (u.shape[1] + threads[1] - 1) // threads[1]
+            (u.shape[1] + threads[1] - 1) // threads[1],
         )
 
         # Fixed-iteration Jacobi (documented in report)
@@ -96,18 +82,12 @@ def run_cuda(buildings, max_iter):
     return results
 
 
-
-# CuPy version
-
 def jacobi_cupy(u, interior_mask, max_iter=20_000, atol=1e-6):
     u = cp.asarray(u)
     mask = cp.asarray(interior_mask, dtype=cp.bool_)
 
     for _ in range(max_iter):
-        u_new = 0.25 * (
-            u[1:-1, :-2] + u[1:-1, 2:] +
-            u[:-2, 1:-1] + u[2:, 1:-1]
-        )
+        u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
 
         diff = cp.abs(u[1:-1, 1:-1][mask] - u_new[mask]).max()
         u[1:-1, 1:-1][mask] = u_new[mask]
@@ -118,9 +98,6 @@ def jacobi_cupy(u, interior_mask, max_iter=20_000, atol=1e-6):
     return u.get()
 
 
-# ---------------------------
-# Main
-# ---------------------------
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("N", type=int)
@@ -163,3 +140,4 @@ if __name__ == "__main__":
             axs[i].axis("off")
         plt.tight_layout()
         plt.savefig(f"output/plots/q9_{args.mode}.png")
+

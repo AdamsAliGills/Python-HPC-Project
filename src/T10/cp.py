@@ -9,8 +9,6 @@ import cupy as cp
 from os.path import join
 
 
-# Data loading
-
 def load_buildings(N, seed=42):
     LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
     with open(join(LOAD_DIR, "building_ids.txt"), "r") as f:
@@ -28,19 +26,12 @@ def load_buildings(N, seed=42):
     return buildings, building_ids
 
 
-
-
-# CuPy version
-
 def jacobi_cupy(u, interior_mask, max_iter=20_000, atol=1e-6):
     u = cp.asarray(u)
     mask = cp.asarray(interior_mask, dtype=cp.bool_)
 
     for _ in range(max_iter):
-        u_new = 0.25 * (
-            u[1:-1, :-2] + u[1:-1, 2:] +
-            u[:-2, 1:-1] + u[2:, 1:-1]
-        )
+        u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
 
         diff = cp.abs(u[1:-1, 1:-1][mask] - u_new[mask]).max()
         u[1:-1, 1:-1][mask] = u_new[mask]
@@ -51,9 +42,6 @@ def jacobi_cupy(u, interior_mask, max_iter=20_000, atol=1e-6):
     return u.get()
 
 
-# ---------------------------
-# Main
-# ---------------------------
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("N", type=int)
@@ -66,4 +54,3 @@ if __name__ == "__main__":
     buildings, building_ids = load_buildings(args.N)
 
     all_u = [jacobi_cupy(u, m, MAX_ITER, ABS_TOL) for u, m in buildings]
-

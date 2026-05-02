@@ -8,7 +8,6 @@ SIZE = 512
 
 
 def load_data():
-    # u_refactor = np.zeros((SIZE + 2, SIZE + 2))
     u = np.zeros((len(id_args), SIZE + 2, SIZE + 2))
     interior_mask = np.zeros((len(id_args), SIZE, SIZE), dtype="bool")
 

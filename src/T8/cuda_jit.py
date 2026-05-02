@@ -7,12 +7,14 @@ from functools import partial
 import argparse
 from numba import cuda
 
+
 def load_data(load_dir, bid):
     SIZE = 512
     u = np.zeros((SIZE + 2, SIZE + 2))
     u[1:-1, 1:-1] = np.load(join(load_dir, f"{bid}_domain.npy"))
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
+
 
 def load_buildings(N, seed=42):
     LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
@@ -27,15 +29,17 @@ def load_buildings(N, seed=42):
     for i, bid in enumerate(building_ids):
         u0, interior_mask = load_data(LOAD_DIR, bid)
         buildings.append((u0, interior_mask))
-    
+
     return buildings, building_ids
+
 
 @cuda.jit
 def jacobi_cuda_kernel(u, u_new, interior_mask):
     i, j = cuda.grid(2)  # 2D grid
-    if 1 <= i < u.shape[0]-1 and 1 <= j < u.shape[1]-1:
-        if interior_mask[i-1, j-1]:
-            u_new[i, j] = 0.25 * (u[i-1, j] + u[i+1, j] + u[i, j-1] + u[i, j+1])
+    if 1 <= i < u.shape[0] - 1 and 1 <= j < u.shape[1] - 1:
+        if interior_mask[i - 1, j - 1]:
+            u_new[i, j] = 0.25 * (u[i - 1, j] + u[i + 1, j] + u[i, j - 1] + u[i, j + 1])
+
 
 def run_cuda(buildings, max_iter=20_000):
     d_us, d_masks = [], []
@@ -46,13 +50,10 @@ def run_cuda(buildings, max_iter=20_000):
     all_u = []
     for d_u, d_mask in zip(d_us, d_masks):
         rows, cols = d_u.shape
-        threads_per_block = (16, 16)  # 16x16 = 256 threads per block
-        blocks_per_grid = (
-        (rows + 16 - 1) // 16,
-        (cols + 16 - 1) // 16
-        )
+        threads_per_block = (16, 16)
+        blocks_per_grid = ((rows + 16 - 1) // 16, (cols + 16 - 1) // 16)
         d_u_new = cuda.to_device(d_u.copy_to_host())
-    
+
         for _ in range(MAX_ITER):
             jacobi_cuda_kernel[blocks_per_grid, threads_per_block](d_u, d_u_new, d_mask)
             d_u, d_u_new = d_u_new, d_u
@@ -60,10 +61,13 @@ def run_cuda(buildings, max_iter=20_000):
         all_u.append(d_u.copy_to_host())
     return all_u
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("N", type=int)
-    parser.add_argument("mode", default='provided', choices=['parallel', 'jit', 'cuda', 'cupy'])
+    parser.add_argument(
+        "mode", default="provided", choices=["parallel", "jit", "cuda", "cupy"]
+    )
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--dynamic", action="store_true", default=False)
     parser.add_argument("--plot", action="store_true", default=False)
@@ -76,9 +80,9 @@ if __name__=='__main__':
 
     buildings, building_ids = load_buildings(args.N)
 
-    if args.mode == 'cuda':
+    if args.mode == "cuda":
         all_u = run_cuda(buildings)
-    
+
     if args.plot:
         fig, axs = plt.subplots(1, 4, figsize=(12, 5))
 

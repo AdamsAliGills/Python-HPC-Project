@@ -100,4 +100,3 @@ if __name__ == "__main__":
         u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
         all_u[i] = u
     """
-
