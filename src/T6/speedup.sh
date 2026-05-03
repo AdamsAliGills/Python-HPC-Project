@@ -21,5 +21,5 @@ for N in {1..16}; do
     -J "chunked_parallel_n$N" \
     -o "job_%J_n$N.out" \
     -e "job_%J_n$N.err" \
-    "/usr/bin/time -v -o required_logs/T5/plans_10/parallel_core_$N.log python3 src/T5/parallel_map_static.py 32 $N"
+    "/usr/bin/time -v -o required_logs/T6/plans_10/parallel_core_$N.log python3 src/T6/parallel_imap_dynamic.py 32 $N"
 done
