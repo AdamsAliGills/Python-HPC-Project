@@ -17,11 +17,17 @@ A high-performance computing project that optimizes a thermal simulation of buil
 
 This project takes a provided baseline Python implementation of a Jacobi solver for building wall heating simulations and progressively optimizes it using a range of HPC techniques. The baseline requires approximately 20.8 hours to process the full dataset of 4,571 buildings. Through profiling and optimization, the final GPU implementation reduces this to approximately 1.38 hours.
 
-### Input Data and Simulation Results
+### Input Data
 
-Below are the input floorplans and corresponding simulation outputs for a sample of buildings.
+The input dataset consists of building floorplans, where each building is represented by an initial temperature grid and an interior mask that defines the valid simulation domain.
 
-![Input data and simulation results](assets/figure_input_data.png)
+![Input data for three floorplans](assets/figure_input_data.png)
+
+### Simulation Results
+
+The Jacobi solver computes the steady-state temperature distribution for each building. Below are example simulation outputs.
+
+![Simulation results for three floorplans](assets/figure_simulation_results.png)
 
 ## Key Findings
 
@@ -31,13 +37,9 @@ Using Amdahl's Law, the parallel fraction of the baseline solver was estimated a
 
 The figure below shows the empirical speedup achieved with static and dynamic scheduling across different numbers of workers.
 
-![Speedup plot](assets/figure_speedup.png)
+![Speedup as a function of workers](assets/figure_speedup.png)
 
 ### GPU Optimization (Task 10)
-
-The figure below shows the profiler results and GPU implementation comparison discussed in this section.
-
-![GPU and Numba results](assets/figure_numba_cuda.png)
 
 Profiling with `nsys` revealed three major bottlenecks in the naive CuPy implementation:
 
@@ -59,7 +61,7 @@ Profiling with `nsys` revealed three major bottlenecks in the naive CuPy impleme
 - **Buildings with at least 50% area above 18 C:** 804
 - **Buildings with at least 50% area below 15 C:** 2,471
 
-![Distribution of mean temperatures](assets/figure_histogram.png)
+![Distribution of mean temperatures across buildings](assets/figure_histogram.png)
 
 ## Requirements
 
@@ -75,29 +77,7 @@ Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-# or
+
 uv sync
+
 ```
-
-## Usage
-
-Run individual tasks from their respective directories in `src/`:
-
-```bash
-# Example: run static parallel scheduling
-python src/T5/parallel_map_static.py
-
-# Example: run JIT-compiled solver
-python src/T7/numba_jit_cpu.py
-
-# Example: run custom CUDA kernel
-python src/T8/cuda_jit.py
-
-# Example: process all floorplans with resume support
-python src/T12/step12_run_all.py
-```
-
-Scripts for batch execution on HPC clusters (using `bsub` or `sbatch`) are included alongside the Python files.
-
-## License
-This project was created for academic purposes as part of the DTU 02613 course.
